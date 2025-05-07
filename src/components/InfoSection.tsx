@@ -73,7 +73,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
             <X size={20} />
           </button>
         </div>
-        <div className="p-5 max-h-[60vh] md:max-h-[70vh] overflow-y-auto custom-scrollbar">
+        <div className="p-5 max-h-[70vh] md:max-h-[70vh] overflow-y-auto custom-scrollbar">
           {content}
         </div>
       </div>

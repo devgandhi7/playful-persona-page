@@ -142,6 +142,16 @@
   100% { opacity: 0; transform: translateY(10px); }
 }
 
+@keyframes slide-in {
+  0% { transform: translateX(-20px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scale-in {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
@@ -156,6 +166,14 @@
 
 .animate-fade-out {
   animation: fade-out 0.3s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out forwards;
 }
 
 /* Content styling enhancements */
@@ -174,4 +192,76 @@
 .highlight-text {
   @apply text-game-purple;
   text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+}
+
+/* Interactive link hover effect */
+.hover-link {
+  position: relative;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.hover-link:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: linear-gradient(90deg, #8b5cf6, #6366f1);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.hover-link:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Staggered animations */
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+.stagger-item:nth-child(6) { animation-delay: 0.6s; }
+.stagger-item:nth-child(7) { animation-delay: 0.7s; }
+.stagger-item:nth-child(8) { animation-delay: 0.8s; }
+
+/* Skill tag styling */
+.skill-tag {
+  @apply px-2 py-1 bg-game-purple/20 rounded-md text-sm transition-all;
+}
+
+.skill-tag:hover {
+  @apply bg-game-purple/40 scale-110;
+}
+
+/* Timeline styling for experience */
+.timeline-item {
+  @apply border-l-2 border-game-purple/30 pl-4 py-2 transition-all;
+}
+
+.timeline-item:hover {
+  @apply border-game-purple;
+}
+
+/* Button glows */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glow:before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 60%);
+  animation: pulse-glow 3s infinite;
+  transform: rotate(45deg);
+  z-index: -1;
 }

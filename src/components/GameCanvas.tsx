@@ -9,7 +9,8 @@ import {
   Float,
   Stars,
   useTexture,
-  MeshDistortMaterial
+  MeshDistortMaterial,
+  Sparkles
 } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -23,6 +24,7 @@ interface GameCanvasProps {
 // Interactive spot component with enhanced visuals
 const InfoSpot = ({ position, label, color, id }) => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const ringRef = useRef<THREE.Mesh>(null);
   
   useFrame(({ clock }) => {
     if (meshRef.current) {
@@ -30,6 +32,12 @@ const InfoSpot = ({ position, label, color, id }) => {
       meshRef.current.position.y = 0.5 + Math.sin(clock.getElapsedTime() * 2 + position[0]) * 0.1;
       // Add subtle rotation
       meshRef.current.rotation.y += 0.005;
+    }
+    
+    if (ringRef.current) {
+      // Animate the ring
+      ringRef.current.scale.x = 1 + Math.sin(clock.getElapsedTime() * 1.5) * 0.1;
+      ringRef.current.scale.y = 1 + Math.sin(clock.getElapsedTime() * 1.5) * 0.1;
     }
   });
 
@@ -86,6 +94,17 @@ const InfoSpot = ({ position, label, color, id }) => {
         />
       </mesh>
       
+      {/* Add sparkles */}
+      <Sparkles 
+        count={50}
+        scale={[3, 3, 3]}
+        position-y={1.5}
+        size={6}
+        speed={0.3}
+        opacity={0.7}
+        color={color}
+      />
+      
       {/* Add light */}
       <pointLight 
         color={color} 
@@ -96,7 +115,7 @@ const InfoSpot = ({ position, label, color, id }) => {
       />
       
       {/* Add light ring effect */}
-      <mesh position={[0, 0.1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh ref={ringRef} position={[0, 0.1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.9, 1.3, 32]} />
         <meshBasicMaterial 
           color={color} 
